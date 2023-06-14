@@ -1,7 +1,6 @@
 let currentAnswerState;
 
 
-
 function populateAnswer() {
 
     currentAnswerState = {};

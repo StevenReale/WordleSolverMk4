@@ -13,8 +13,21 @@
 
 <body>
     <header>
-        <h1>Wordle Solver, Mk 4</h1>
+        <h1>Wordle Solver</h1>
+        <form class="howto" action='instructions.html'>
+            <input class="howtobtn" type="submit" value="How it Works" />
+        </form>
     </header>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>Some text in the Modal..</p>
+    </div>
+  
+  </div>
     <main>
         <article>
             <section id='answer-blanks'>
@@ -28,15 +41,20 @@
             </section>
 
             <section id='current-solution'>
-                <label for='current'>Input current state of solution, using blanks for unknown letters.</label>
-                <input type='text' name='current' id='current' maxlength="5">
-                <button id='search'>Search Now</button>
+                <p>Type your proposed solution below &<br>press "search now" to see possible solutions!</p>
+                <p id="info">Use a blank space for unknown letters</p>
+                <div id="input-group">
+                    <input type='text' name='current' id='current' maxlength="5" placeholder="solution">
+                    <button id='search'>Search Now</button>
+                </div>
             </section>
 
-            <section id='answer-list'>
-                <ul id='answers'><div></div></ul>
-            </section>
         </article>
+        <section id='answer-list'>
+            <ul id='answers'><div></div></ul>
+            <div class="bg"></div>
+            <div class="blob"></div>
+        </section>
     </main>
 </body>
 
