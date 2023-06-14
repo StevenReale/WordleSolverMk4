@@ -1,0 +1,25 @@
+#answer-blanks {
+    width: 420px;
+    display: flex;
+    justify-content: center;
+    border: 1px black solid;
+}
+
+#answer-blanks ul {
+    margin: 0;
+    padding: 0;
+    margin: 40px auto;
+    display:flex;
+    list-style-type: none;
+    justify-content: space-around;
+  }
+
+  #answer-blanks li {
+    width: 35px;
+    height: 55px;
+    margin: 0 10px;
+    padding: 10px 10px;
+    cursor: pointer;
+    background-color: #eeeeee;
+    font-size: xxx-large
+  }

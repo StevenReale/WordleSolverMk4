@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wordle Solver, Mk 4</title>
+    <link rel='stylesheet' href = 'styles.css'>
+    <script src = 'solver.js'></script>
+    <script src = 'data/wordlist.js'></script>
+</head>
+
+<body>
+    <header>
+        <h1>Wordle Solver, Mk 4</h1>
+    </header>
+    <main>
+        <article>
+            <section id='answer-blanks'>
+                <ul>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </section>
+
+            <section id='current-solution'>
+                <label for='current'>Input current state of solution, using blanks for unknown letters.</label>
+                <input type='text' name='current' id='current' maxlength="5">
+                <button id='search'>Search Now</button>
+            </section>
+
+            <section id='answer-list'>
+                <ul id='answers'><div></div></ul>
+            </section>
+        </article>
+    </main>
+</body>
+
+</html>
