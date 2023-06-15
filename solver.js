@@ -1,41 +1,65 @@
 let currentAnswerState;
+// let currentAnswerStateTwo;
 let knownLetterBlanks = 0;
 
 
-function populateAnswer() {
+// function populateAnswer() {
 
-    currentAnswerState = {};
+//    currentAnswerState = {};
 
-    const blanks = document.querySelectorAll("#answer-blanks li");
-    for (let blank of blanks) {
-        blank.innerText = "";
-    }
-    const entry = this.value;
+//    const blanks = document.querySelectorAll("#answer-blanks li");
+//    for (let blank of blanks) {
+//        blank.innerText = "";
+//    }
+//    const entry = this.value;
 
-    for (let i = 0; i < entry.length; i++) {
-        let currentLetter = entry.substring(i, i + 1).toUpperCase();
-        if (currentLetter.match(/[A-Za-z]/)) {
-            blanks[i].innerText = currentLetter;
+//    for (let i = 0; i < entry.length; i++) {
+//        let currentLetter = entry.substring(i, i + 1).toUpperCase();
+//        if (currentLetter.match(/[A-Za-z]/)) {
+//            blanks[i].innerText = currentLetter;
+//            currentAnswerState[i] = currentLetter;
+//        }
+
+//    }
+
+// }
+
+function getCurrentAnswer() {
+
+    function saveInputValues() {
+        currentAnswerState = {};
+
+        const firstValue = document.getElementById("first").value;
+        const secondValue = document.getElementById("second").value;
+        const thirdValue = document.getElementById("third").value;
+        const fourthValue = document.getElementById("fourth").value;
+        const fifthValue = document.getElementById("fifth").value;
+    
+        const values = [firstValue, secondValue, thirdValue, fourthValue, fifthValue];
+        for (let i = 0; i < values.length; i++) {
+            let currentLetter = values[i].toUpperCase();
+            if (currentLetter.match(/[A-Za-z]/)) {
             currentAnswerState[i] = currentLetter;
+            }
         }
-
     }
 
+    let inputs = document.getElementsByClassName("new");
+    for (let i = 0; i < inputs.length; i++) {
+        inputs[i].addEventListener("keyup", saveInputValues);
+    }
 }
 
-function toInput() {
-    const inner = document.querySelector('.input-blank div');
-    console.log(inner);
-    $('.input-blank div').replaceWith('<input value="' + inner.innerHTML + '">');
-}
-
-function saveInput() {
-    let inputVal = $('input-blank input');
-    inputVal.each(function(i, input) {
-        $(input).replaceWith('<div>' + $(input).val() + '</div>');
-        console.log(inputVal);
-    });
-}
+// Changes input color when letter is entered
+function handleInputChange(event) {
+    const input = event.target;
+  
+    if (input.value.length > 0) {
+      input.classList.add("valid"); // Add 'valid' class if value is entered
+    } else {
+      input.classList.remove("valid"); // Remove 'valid' class if value is empty
+    }
+  }
 
 function search() {
 
@@ -52,6 +76,7 @@ function search() {
 
     const ruledOutLetters = document.getElementById('ruled-out-letters');
     let ruledOut = ruledOutLetters.value.toUpperCase().split('')
+    console.log(ruledOut);
 
     let possibleAnswers = [];
     const knownLetterDivs = document.querySelectorAll('.known');
@@ -203,13 +228,20 @@ function useModel() {
 document.addEventListener('DOMContentLoaded', () => {
 
     const current = document.getElementById('current');
+    const newcurrent = document.getElementById('new-blanks');
     const searchBtn = document.getElementById('search');
     const blanksBtn = document.getElementById('new-known-letter-blank');
-    current.addEventListener("keyup", populateAnswer);
+    // current.addEventListener("keyup", populateAnswer);
+    newcurrent.addEventListener("keyup", getCurrentAnswer);
     searchBtn.addEventListener('click', search);
     blanksBtn.addEventListener('click', addKnownLetterBlank);
     addKnownLetterBlank();
     useModel();
 
+
+    const inputs = document.getElementsByClassName("new");
+    for (let i = 0; i < inputs.length; i++) {
+        inputs[i].addEventListener("input", handleInputChange);
+    }
 
 });
