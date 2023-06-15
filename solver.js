@@ -12,8 +12,8 @@ function populateAnswer() {
     }
     const entry = this.value;
 
-    for(let i=0; i<entry.length; i++) {
-        let currentLetter = entry.substring(i, i+1).toUpperCase();
+    for (let i = 0; i < entry.length; i++) {
+        let currentLetter = entry.substring(i, i + 1).toUpperCase();
         if (currentLetter.match(/[A-Za-z]/)) {
             blanks[i].innerText = currentLetter;
             currentAnswerState[i] = currentLetter;
@@ -38,6 +38,16 @@ function saveInput() {
 }
 
 function search() {
+
+    const knowns = {
+        0: [],
+        1: [],
+        2: [],
+        3: [],
+        4: [],
+        "fullList": []
+    }
+
     if (currentAnswerState == undefined) return;
 
     const ruledOutLetters = document.getElementById('ruled-out-letters');
@@ -45,24 +55,44 @@ function search() {
 
     let possibleAnswers = [];
     const knownLetterDivs = document.querySelectorAll('.known');
-    const knowns = {};
 
     for (thisDiv of knownLetterDivs) {
         const divId = (Number.parseInt(thisDiv.getAttribute('id').substring(3)));
-        const checkboxes = document.querySelectorAll("#letter-not-in" + divId);
-        console.log(checkboxes);
+        const divLetter = document.getElementById('known-letter-blank-' + divId).value.toUpperCase();
+        const checkboxes = document.querySelectorAll("#letter-not-in-" + divId);
+        for (checkbox of checkboxes) {
+            if (checkbox.checked) {
+                knowns[checkbox.name].push(divLetter);
+                knowns["fullList"].push(divLetter);
+            }
+        }
+
     }
 
     for (let word of wordlist) {
         let found = true;
-        
-        for (let i = 0; i < 5; i++) {
-            let wordLetter = word.substring(i, i+1).toUpperCase();
 
-            if (ruledOut.includes(wordLetter)){
+        for (let i = 0; i < 5; i++) {
+            let wordLetter = word.substring(i, i + 1).toUpperCase();
+
+            let letterFound = true;
+
+            if (knowns['fullList'].length > 0) {
+
+
+                for (let includeLetter of knowns['fullList']) {
+
+                    if (!word.toUpperCase().split('').includes(includeLetter)) {
+                        letterFound = false;
+                    }
+                }
+            }
+
+
+            if (!letterFound || ruledOut.includes(wordLetter) || knowns[i].includes(wordLetter)) {
                 found = false;
                 continue;
-             }
+            }
 
             if (currentAnswerState[i] == null || ruledOut.includes(wordLetter)) {
                 continue;
@@ -74,13 +104,13 @@ function search() {
                 break;
 
             }
-            
+
         }
         if (found) {
             possibleAnswers.push(word);
         }
     }
-    
+
     const answers = document.getElementById('answers');
     answers.innerHTML = ' ';
     for (let word of possibleAnswers) {
@@ -88,7 +118,7 @@ function search() {
         newEntry.innerText = word;
         answers.appendChild(newEntry);
     }
- 
+
 }
 
 function addKnownLetterBlank() {
@@ -137,7 +167,7 @@ function addKnownLetterBlank() {
     deleteBtn.innerText = '-';
     letterDiv.appendChild(deleteBtn);
     deleteBtn.addEventListener('click', () => letterDiv.remove());
-    
+
 }
 
 function useModel() {
@@ -151,21 +181,21 @@ function useModel() {
     let span = document.getElementsByClassName("close")[0];
 
     // When the user clicks on the button, open the model
-    btn.onclick = function() {
-    model.style.display = "block";
+    btn.onclick = function () {
+        model.style.display = "block";
     }
 
     // When the user clicks on <span> (x), close the model
-    span.onclick = function() {
-         model.style.display = "none";
-}
-
-    // When the user clicks anywhere outside of the model, close it
-    window.onclick = function(event) {
-    if (event.target == model) {
+    span.onclick = function () {
         model.style.display = "none";
     }
-}
+
+    // When the user clicks anywhere outside of the model, close it
+    window.onclick = function (event) {
+        if (event.target == model) {
+            model.style.display = "none";
+        }
+    }
 }
 
 
