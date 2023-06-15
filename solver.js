@@ -23,6 +23,20 @@ function populateAnswer() {
 
 }
 
+function toInput() {
+    const inner = document.querySelector('.input-blank div');
+    console.log(inner);
+    $('.input-blank div').replaceWith('<input value="' + inner.innerHTML + '">');
+}
+
+function saveInput() {
+    let inputVal = $('input-blank input');
+    inputVal.each(function(i, input) {
+        $(input).replaceWith('<div>' + $(input).val() + '</div>');
+        console.log(inputVal);
+    });
+}
+
 function search() {
     if (currentAnswerState == undefined) return;
 
