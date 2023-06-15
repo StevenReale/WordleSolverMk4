@@ -224,8 +224,8 @@ p {
   outline: 2px solid white;
 }
 
-/* The Modal (background) */
-.modal {
+/* The Model (background) */
+.model {
   display: none;
   position: fixed;
   z-index: 111112;
@@ -238,8 +238,8 @@ p {
   background-color: rgba(0,0,0,0.4);
 }
 
-/* Modal Content/Box */
-.modal-content {
+/* Model Content/Box */
+.model-content {
   background-color: #fefefe;
   border-radius: 15px;
   margin: 15% auto;

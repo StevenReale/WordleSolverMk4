@@ -13,36 +13,36 @@
 
 <body>
     <header>
-        <h1>Wordle Solver</h1>
+        <h1>Wordle Solver, Mk 4</h1>
         <div class="howto">
             <button id="myBtn">How it works</button>
         </div>
     </header>
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
+        <!-- The Model -->
+        <div id="myModel" class="model">
 
-    <!-- Modal content -->
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <p><span class="step">Step 1:</span>Open wordle & enter your starting word</p>
-      <img src="/img/first-1.png" alt="starting word" width="300" height="60">
-      <p><span class="step">Step 2:</span>See what letters are correct or incorrect</p>
-      <img src="/img/second.png" alt="starting word" width="300" height="60">
-      <p><span class="step">Step 3:</span>Come back to the solver app and enter the correct letters, leaving blank spaces for unknown letters.</p>
-      <img src="/img/test-1.png" alt="starting word" width="300" height="60">
-      <p class="note">Note: red lines indicate where spaces go</p>
-      <p><span class="step">Step 4:</span>Search to see possible word options</p>
-      <img src="/img/answers.png" alt="starting word" width="70" height="175">
-      <p><span class="step">Step 5:</span>Repeat steps 3 & 4 until your guess is correct!</p>
-      <img src="/img/third.png" alt="starting word" width="300" height="60">
-      <img src="/img/test-2.png" alt="starting word" width="300" height="60">
-      <img src="/img/fourth.png" alt="starting word" width="300" height="60">
-      <img src="/img/test-3.png" alt="starting word" width="300" height="60">
-      <img src="/img/fifth.png" alt="starting word" width="300" height="60">
-      <p>Congrats! You solved it!</p>
-    </div>
-  
-  </div>
+            <!-- Model content -->
+            <div class="model-content">
+              <span class="close">&times;</span>
+              <p><span class="step">Step 1:</span>Open wordle & enter your starting word</p>
+              <img src="/img/first-1.png" alt="starting word" width="300" height="60">
+              <p><span class="step">Step 2:</span>See what letters are correct or incorrect</p>
+              <img src="/img/second.png" alt="starting word" width="300" height="60">
+              <p><span class="step">Step 3:</span>Come back to the solver app and enter the correct letters, leaving blank spaces for unknown letters.</p>
+              <img src="/img/test-1.png" alt="starting word" width="300" height="60">
+              <p class="note">Note: red lines indicate where spaces go</p>
+              <p><span class="step">Step 4:</span>Search to see possible word options</p>
+              <img src="/img/answers.png" alt="starting word" width="70" height="175">
+              <p><span class="step">Step 5:</span>Repeat steps 3 & 4 until your guess is correct!</p>
+              <img src="/img/third.png" alt="starting word" width="300" height="60">
+              <img src="/img/test-2.png" alt="starting word" width="300" height="60">
+              <img src="/img/fourth.png" alt="starting word" width="300" height="60">
+              <img src="/img/test-3.png" alt="starting word" width="300" height="60">
+              <img src="/img/fifth.png" alt="starting word" width="300" height="60">
+              <p>Congrats! You solved it!</p>
+            </div>
+          
+          </div>
     <main>
         <article>
             <section id='answer-blanks'>
@@ -60,9 +60,20 @@
                 <p id="info">Use a blank space for unknown letters</p>
                 <div id="input-group">
                     <input type='text' name='current' id='current' maxlength="5" placeholder="solution">
-                    <button id='search'>Search Now</button>
-                </div>
+                    
+                </div>   
             </section>
+            <section id='known-letters'>
+
+                <button id='new-known-letter-blank'>Add another known letter</button>
+            </section>
+
+            <section id = 'ruled-out'>
+                <label for ='ruled-out-letters'>Add all letters that have been ruled out</label>
+                <input type='text' name ='ruled-out-letters' id = 'ruled-out-letters'>
+            </section>
+            
+            <button id='search'>Search Now</button>
 
         </article>
         <section id='answer-list'>
