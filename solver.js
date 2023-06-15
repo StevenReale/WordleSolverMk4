@@ -2,7 +2,6 @@ let currentAnswerState;
 let knownLetterBlanks = 0;
 
 
-
 function populateAnswer() {
 
     currentAnswerState = {};
@@ -25,7 +24,11 @@ function populateAnswer() {
 }
 
 function search() {
-    //if (currentAnswerState == undefined) return;
+    if (currentAnswerState == undefined) return;
+
+    const ruledOutLetters = document.getElementById('ruled-out-letters');
+    let ruledOut = ruledOutLetters.value.toUpperCase().split('')
+
     let possibleAnswers = [];
     const knownLetterDivs = document.querySelectorAll('.known');
     const knowns = {};
@@ -38,11 +41,21 @@ function search() {
 
     for (let word of wordlist) {
         let found = true;
+        
         for (let i = 0; i < 5; i++) {
-            if (currentAnswerState[i] == null) {
+            let wordLetter = word.substring(i, i+1).toUpperCase();
+
+            if (ruledOut.includes(wordLetter)){
+                found = false;
+                continue;
+             }
+
+            if (currentAnswerState[i] == null || ruledOut.includes(wordLetter)) {
                 continue;
             }
-            if (word.substring(i, i+1).toUpperCase() !== currentAnswerState[i]) {
+
+
+            if (wordLetter !== currentAnswerState[i]) {
                 found = false;
                 break;
 
@@ -111,10 +124,36 @@ function addKnownLetterBlank() {
     letterDiv.appendChild(deleteBtn);
     deleteBtn.addEventListener('click', () => letterDiv.remove());
     
-    
-
-
 }
+
+function useModel() {
+    // Get the model
+    let model = document.getElementById("myModel");
+
+    // Get the button that opens the model
+    let btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the model
+    let span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the model
+    btn.onclick = function() {
+    model.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the model
+    span.onclick = function() {
+         model.style.display = "none";
+}
+
+    // When the user clicks anywhere outside of the model, close it
+    window.onclick = function(event) {
+    if (event.target == model) {
+        model.style.display = "none";
+    }
+}
+}
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -126,5 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     searchBtn.addEventListener('click', search);
     blanksBtn.addEventListener('click', addKnownLetterBlank);
     addKnownLetterBlank();
+    useModel();
+
 
 });
