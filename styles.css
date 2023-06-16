@@ -14,6 +14,12 @@ header h1 {
   margin-bottom: 0px;
 }
 
+header h4 {
+  display: grid;
+  justify-content: center;
+  margin: 0px;
+}
+
 .howto {
   display: grid;
   justify-content: center;
