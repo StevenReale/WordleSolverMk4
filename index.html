@@ -12,8 +12,9 @@
 </head>
 
 <body>
-    <header>
-        <h1>Wordle Solver, Mk 4</h1>
+    <header id = "header-section">
+        <h1>Wordle Solver</h1>
+        <h4>Mk4</h4>
         <div class="howto">
             <button id="myBtn">How it works</button>
         </div>
@@ -29,15 +30,11 @@
               <p><span class="step">Step 2:</span>See what letters are correct or incorrect</p>
               <img src="/img/second.png" alt="starting word" width="300" height="60">
               <p><span class="step">Step 3:</span>Come back to the solver app and enter the correct letters, leaving blank spaces for unknown letters.</p>
-              <img src="/img/test-1.png" alt="starting word" width="300" height="60">
-              <p class="note">Note: red lines indicate where spaces go</p>
+              <img src="/img/step3.png" alt="starting word" width="300" height="80">
               <p><span class="step">Step 4:</span>Search to see possible word options</p>
               <img src="/img/answers.png" alt="starting word" width="70" height="175">
               <p><span class="step">Step 5:</span>Repeat steps 3 & 4 until your guess is correct!</p>
-              <img src="/img/third.png" alt="starting word" width="300" height="60">
-              <img src="/img/test-2.png" alt="starting word" width="300" height="60">
-              <img src="/img/fourth.png" alt="starting word" width="300" height="60">
-              <img src="/img/test-3.png" alt="starting word" width="300" height="60">
+              <p class="note">Use the "known letter" & "ruled-out letter" functions to further narrow your options</p>
               <img src="/img/fifth.png" alt="starting word" width="300" height="60">
               <p>Congrats! You solved it!</p>
             </div>
@@ -45,16 +42,6 @@
           </div>
     <main>
         <article>
-            <!-- <section id='answer-blanks'>
-                <ul>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                </ul>
-    
-            </section> -->
             <section id='new-blanks'>
                 <input id = "first" class="new" type="text" maxlength="1">
                 <input id = "second" class="new" type="text" maxlength="1">
@@ -62,35 +49,25 @@
                 <input id = "fourth" class="new" type="text" maxlength="1">
                 <input id = "fifth" class="new" type="text" maxlength="1">
             </section>
-
-            <!-- <section id='current-solution'>
-                <p>Type your known letters below &<br>press "search now" to see possible solutions!</p>
-                <p id="info">Use a blank space for unknown letters</p>
-                <div id="input-group">
-                    <input type='text' name='current' id='current' maxlength="5" placeholder="solution">
-                    
-                </div>   
-            </section> -->
-            <section id='known-letters'>
+            <section id="display-buttons">
+                <button id="known-button" onclick="displayKnownLetters()">Add known letters</button>
+                <button id="ruled-out-button" onclick="displayRuledOutLetters()">Add ruled-out letters</button>
+            </section>
+            <section id='known-letters' style="display:none">
                 <button id='new-known-letter-blank'>+</button>
             </section>
 
-            <section id = 'ruled-out'>
-                <!-- <label for ='ruled-out-letter-inputs'>Add all letters that have been ruled out</label> -->
-                <!-- <input type='text' name ='ruled-out-letters' id = 'ruled-out-letters'> -->
-                <h4>Add all letters that have been ruled out</h3>
-                <div id='ruled-out-letter-inputs'>
-                </div>
-                <button id="ruled-out-button">+</button>
+            <section id = 'ruled-out' style="display:none">
+                <label for ='ruled-out-letters'>Add all letters that have been ruled out</label>
+                <input type='text' name ='ruled-out-letters' id = 'ruled-out-letters'>
             </section>
             
             <button id='search'>Search Now</button>
 
         </article>
-        <section id='answer-list'>
+        <section id='answer-list'style="display:none">
             <ul id='answers'><div></div></ul>
             <div class="bg"></div>
-            <div class="blob"></div>
         </section>
     </main>
 </body>

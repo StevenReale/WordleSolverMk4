@@ -3,28 +3,6 @@ let knownLetterBlanks = 0;
 let ruledOutLetterBlanks = 0;
 let ruledOut;
 
-
-// function populateAnswer() {
-
-//    currentAnswerState = {};
-
-//    const blanks = document.querySelectorAll("#answer-blanks li");
-//    for (let blank of blanks) {
-//        blank.innerText = "";
-//    }
-//    const entry = this.value;
-
-//    for (let i = 0; i < entry.length; i++) {
-//        let currentLetter = entry.substring(i, i + 1).toUpperCase();
-//        if (currentLetter.match(/[A-Za-z]/)) {
-//            blanks[i].innerText = currentLetter;
-//            currentAnswerState[i] = currentLetter;
-//        }
-
-//    }
-
-// }
-
 function getCurrentAnswer() {
 
     function saveInputValues() {
@@ -51,43 +29,6 @@ function getCurrentAnswer() {
     }
 }
 
-function getRuledOutLetters() {
-    function saveRuledOutInput() {
-        ruledOut = [];
-
-
-    }
-}
-
-function addRuledOutInput() {
-    ruledOutLetterBlanks++;
-    console.log(ruledOutLetterBlanks);
-
-    const ruledOutInputs = document.getElementById('ruled-out-letter-inputs');
-    const ruledOutSection = document.getElementById('ruled-out');
-    const ruledOutDiv = document.createElement('div');
-    ruledOutDiv.classList.add("ruled-out-div");
-    ruledOutInputs.appendChild(ruledOutDiv);
-    
-    const newInput = document.createElement('input');
-    newInput.classList.add('new-ruled');
-    newInput.setAttribute("type", "text");
-    newInput.setAttribute("maxlength", "1");
-    newInput.id = "ruled-out-" + ruledOutLetterBlanks;
-    ruledOutDiv.appendChild(newInput);
-    
-    //create delete button
-    const deleteRuledBtn = document.createElement('button');
-    deleteRuledBtn.innerText = '-';
-    deleteRuledBtn.classList.add("ruled-out-minus");
-    ruledOutDiv.appendChild(deleteRuledBtn);
-    deleteRuledBtn.addEventListener('click', () => {
-        newInput.remove();
-        deleteRuledBtn.remove();
-        });
-
-}
-
 // Changes input color when letter is entered
 function handleInputChange(event) {
     const input = event.target;
@@ -100,6 +41,11 @@ function handleInputChange(event) {
   }
 
 function search() {
+
+    const answerSection = document.getElementById('answer-list');
+    if (answerSection.style.display == "none") {
+        answerSection.removeAttribute("style");  // <-- Set it to block
+    }
 
     const knowns = {
         0: [],
@@ -114,7 +60,6 @@ function search() {
 
     const ruledOutLetters = document.getElementById('ruled-out-letters');
     let ruledOut = ruledOutLetters.value.toUpperCase().split('');
-    console.log(ruledOut);
 
     let possibleAnswers = [];
     const knownLetterDivs = document.querySelectorAll('.known');
@@ -186,8 +131,6 @@ function search() {
 
 function addKnownLetterBlank() {
     knownLetterBlanks++;
-
-    const knownLetterSection = document.getElementById('known-letters');
 
     //create new div to house new blanks
     const blankSectionButton = document.getElementById('new-known-letter-blank');
@@ -290,20 +233,46 @@ function useModel() {
     }
 }
 
+function displayKnownLetters() {
+    const section = document.getElementById("known-letters");
+    const button = document.getElementById("known-button");
+    if (section.style.display == "none") {
+        section.style.display = "block";  // <-- Set it to block
+        button.classList.add("color");
+        button.innerText = "Hide known letters";
+    } else {
+        section.style.display = "none";
+        button.classList.remove("color");
+        button.innerText = "Add known letters";
+    }
+}
+
+function displayRuledOutLetters() {
+    const section = document.getElementById("ruled-out");
+    const button = document.getElementById("ruled-out-button");
+    if (section.style.display == "none") {
+        section.style.display = "block";  // <-- Set it to block
+        button.classList.add("color");
+        button.innerText = "Hide ruled-out letters";
+    } else {
+        section.style.display = "none";
+        button.classList.remove("color");
+        button.innerText = "Add ruled-out letters";
+    }
+}
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    const current = document.getElementById('current');
     const newcurrent = document.getElementById('new-blanks');
     const searchBtn = document.getElementById('search');
     const blanksBtn = document.getElementById('new-known-letter-blank');
+    const knownBtn = document.getElementById('known-button');
     const ruledOutBtn = document.getElementById('ruled-out-button');
-    // current.addEventListener("keyup", populateAnswer);
     newcurrent.addEventListener("keyup", getCurrentAnswer);
     searchBtn.addEventListener('click', search);
     blanksBtn.addEventListener('click', addKnownLetterBlank);
-    ruledOutBtn.addEventListener('click', addRuledOutInput);
     addKnownLetterBlank();
     useModel();
 
