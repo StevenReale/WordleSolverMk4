@@ -1,6 +1,7 @@
 let currentAnswerState;
-// let currentAnswerStateTwo;
 let knownLetterBlanks = 0;
+let ruledOutLetterBlanks = 0;
+let ruledOut;
 
 
 // function populateAnswer() {
@@ -50,6 +51,43 @@ function getCurrentAnswer() {
     }
 }
 
+function getRuledOutLetters() {
+    function saveRuledOutInput() {
+        ruledOut = [];
+
+
+    }
+}
+
+function addRuledOutInput() {
+    ruledOutLetterBlanks++;
+    console.log(ruledOutLetterBlanks);
+
+    const ruledOutInputs = document.getElementById('ruled-out-letter-inputs');
+    const ruledOutSection = document.getElementById('ruled-out');
+    const ruledOutDiv = document.createElement('div');
+    ruledOutDiv.classList.add("ruled-out-div");
+    ruledOutInputs.appendChild(ruledOutDiv);
+    
+    const newInput = document.createElement('input');
+    newInput.classList.add('new-ruled');
+    newInput.setAttribute("type", "text");
+    newInput.setAttribute("maxlength", "1");
+    newInput.id = "ruled-out-" + ruledOutLetterBlanks;
+    ruledOutDiv.appendChild(newInput);
+    
+    //create delete button
+    const deleteRuledBtn = document.createElement('button');
+    deleteRuledBtn.innerText = '-';
+    deleteRuledBtn.classList.add("ruled-out-minus");
+    ruledOutDiv.appendChild(deleteRuledBtn);
+    deleteRuledBtn.addEventListener('click', () => {
+        newInput.remove();
+        deleteRuledBtn.remove();
+        });
+
+}
+
 // Changes input color when letter is entered
 function handleInputChange(event) {
     const input = event.target;
@@ -75,7 +113,7 @@ function search() {
     if (currentAnswerState == undefined) return;
 
     const ruledOutLetters = document.getElementById('ruled-out-letters');
-    let ruledOut = ruledOutLetters.value.toUpperCase().split('')
+    let ruledOut = ruledOutLetters.value.toUpperCase().split('');
     console.log(ruledOut);
 
     let possibleAnswers = [];
@@ -84,7 +122,7 @@ function search() {
     for (thisDiv of knownLetterDivs) {
         const divId = (Number.parseInt(thisDiv.getAttribute('id').substring(3)));
         const divLetter = document.getElementById('known-letter-blank-' + divId).value.toUpperCase();
-        const checkboxes = document.querySelectorAll("#letter-not-in-" + divId);
+        const checkboxes = document.querySelectorAll(".letter-not-in-" + divId);
         for (checkbox of checkboxes) {
             if (checkbox.checked) {
                 knowns[checkbox.name].push(divLetter);
@@ -149,6 +187,8 @@ function search() {
 function addKnownLetterBlank() {
     knownLetterBlanks++;
 
+    const knownLetterSection = document.getElementById('known-letters');
+
     //create new div to house new blanks
     const blankSectionButton = document.getElementById('new-known-letter-blank');
     const letterDiv = document.createElement('div');
@@ -157,11 +197,17 @@ function addKnownLetterBlank() {
     blankSectionButton.insertAdjacentElement("beforebegin", letterDiv);
 
     //create label for letter input
-    const letterLabel = document.createElement('label');
+    const letterLabel = document.createElement('div');
     const label = "known-letter-blank-" + knownLetterBlanks;
     letterLabel.setAttribute("for", label);
+    letterLabel.id = "section-label";
     letterLabel.innerText = "Input next known letter: ";
     letterDiv.appendChild(letterLabel);
+
+    //create row items div
+    const rowDiv = document.createElement('div');
+    rowDiv.id = "row-items";
+    letterDiv.appendChild(rowDiv);
 
     //create letter input
     const letter = document.createElement('input');
@@ -169,29 +215,50 @@ function addKnownLetterBlank() {
     letter.name = label;
     letter.id = label;
     letter.type = 'text';
-    letterDiv.appendChild(letter);
+    rowDiv.appendChild(letter);
 
     //create label for blanks input
-    const blanksLabel = document.createElement('label');
+    const blanksLabel = document.createElement('div');
     const labelForBlank = "letter-not-in-" + knownLetterBlanks;
+    blanksLabel.id = "select-label";
     blanksLabel.setAttribute("for", labelForBlank);
     blanksLabel.innerText = 'Select blanks where it is known that this letter does not appear: ';
-    letterDiv.appendChild(blanksLabel);
+
+    // create div for label & checkboxes
+    const checkDiv = document.createElement('div');
+    checkDiv.id = "select-checks";
+    rowDiv.appendChild(checkDiv);
+    checkDiv.appendChild(blanksLabel);
+
+    // create div for checkboxes
+    const justChecks = document.createElement('div');
+    justChecks.id = "just-checks";
+    checkDiv.appendChild(justChecks);
 
     //create blanks input
     for (let i = 0; i < 5; i++) {
         const check = document.createElement('input');
         check.type = 'checkbox';
-        check.id = labelForBlank;
+        check.classList.add(labelForBlank, 'check-boxes');
         check.name = i;
-        letterDiv.appendChild(check);
+        justChecks.appendChild(check);
     }
 
-    //create delete button
-    const deleteBtn = document.createElement('button');
-    deleteBtn.innerText = '-';
-    letterDiv.appendChild(deleteBtn);
-    deleteBtn.addEventListener('click', () => letterDiv.remove());
+    //create delete & plus div
+    const buttonDiv = document.createElement('div');
+    buttonDiv.id = "plus-minus";
+    rowDiv.appendChild(buttonDiv);
+
+    // if statement so that a user can't get rid of the next known letter div altogether 
+    // it just looks silly w/o it
+    if (knownLetterBlanks > 1) {
+        //create delete button
+        const deleteBtn = document.createElement('button');
+        deleteBtn.innerText = '-';
+        deleteBtn.id = "minus";
+        buttonDiv.appendChild(deleteBtn);
+        deleteBtn.addEventListener('click', () => letterDiv.remove());
+    }
 
 }
 
@@ -231,10 +298,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const newcurrent = document.getElementById('new-blanks');
     const searchBtn = document.getElementById('search');
     const blanksBtn = document.getElementById('new-known-letter-blank');
+    const ruledOutBtn = document.getElementById('ruled-out-button');
     // current.addEventListener("keyup", populateAnswer);
     newcurrent.addEventListener("keyup", getCurrentAnswer);
     searchBtn.addEventListener('click', search);
     blanksBtn.addEventListener('click', addKnownLetterBlank);
+    ruledOutBtn.addEventListener('click', addRuledOutInput);
     addKnownLetterBlank();
     useModel();
 
