@@ -44,6 +44,15 @@ header h4 {
   cursor: pointer;
 }
 
+#myBtn:hover {
+  border: 1px solid white;
+  box-shadow: 5px 7px 14px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(6px);
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
 main {
   display: flex;
   flex-direction: column;
@@ -235,6 +244,15 @@ article {
   color: white;
 }
 
+#ruled-out-button:hover {
+  border: 1px solid white;
+  box-shadow: 5px 7px 14px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(6px);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
 #known-button {
   padding: 10px;
   border-color: #019a01;
@@ -248,6 +266,15 @@ article {
 #known-button.color {
   background-color: #019a01;
   color: white;
+}
+
+#known-button:hover {
+  border: 1px solid white;
+  box-shadow: 5px 7px 14px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(6px);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.5s;
 }
 
 #select {
