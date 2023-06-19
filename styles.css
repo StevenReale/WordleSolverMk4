@@ -141,6 +141,7 @@ article {
     user-select: none;
     font-weight: bolder;
     color: black;
+    text-transform: uppercase;
   }
 
 .new:hover {
@@ -210,6 +211,7 @@ article {
     user-select: none;
     font-weight: bolder;
     color: black;
+    text-transform: uppercase;
 }
 
 #display-buttons {
@@ -327,6 +329,7 @@ article {
   font-size: xx-large;
   padding-left: 10px;
   margin-top: 10px;
+  text-transform: uppercase;
 }
 
 #search {

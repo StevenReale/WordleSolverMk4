@@ -5,42 +5,44 @@ let ruledOut;
 
 function getCurrentAnswer() {
 
-    function saveInputValues() {
-        currentAnswerState = {};
 
-        const firstValue = document.getElementById("first").value;
-        const secondValue = document.getElementById("second").value;
-        const thirdValue = document.getElementById("third").value;
-        const fourthValue = document.getElementById("fourth").value;
-        const fifthValue = document.getElementById("fifth").value;
-    
-        const values = [firstValue, secondValue, thirdValue, fourthValue, fifthValue];
-        for (let i = 0; i < values.length; i++) {
-            let currentLetter = values[i].toUpperCase();
-            if (currentLetter.match(/[A-Za-z]/)) {
+    currentAnswerState = {};
+
+    const firstValue = document.getElementById("first").value;
+    const secondValue = document.getElementById("second").value;
+    const thirdValue = document.getElementById("third").value;
+    const fourthValue = document.getElementById("fourth").value;
+    const fifthValue = document.getElementById("fifth").value;
+
+    const values = [firstValue, secondValue, thirdValue, fourthValue, fifthValue];
+    for (let i = 0; i < values.length; i++) {
+        let currentLetter = values[i].toUpperCase();
+        if (currentLetter.match(/[A-Za-z]/)) {
             currentAnswerState[i] = currentLetter;
-            }
         }
     }
 
-    let inputs = document.getElementsByClassName("new");
-    for (let i = 0; i < inputs.length; i++) {
-        inputs[i].addEventListener("keyup", saveInputValues);
-    }
+
+    // let inputs = document.getElementsByClassName("new");
+    // for (let i = 0; i < inputs.length; i++) {
+    //     inputs[i].addEventListener("keyup", saveInputValues);
+    // }
 }
 
 // Changes input color when letter is entered
 function handleInputChange(event) {
     const input = event.target;
-  
+
     if (input.value.length > 0) {
-      input.classList.add("valid"); // Add 'valid' class if value is entered
+        input.classList.add("valid"); // Add 'valid' class if value is entered
     } else {
-      input.classList.remove("valid"); // Remove 'valid' class if value is empty
+        input.classList.remove("valid"); // Remove 'valid' class if value is empty
     }
-  }
+}
 
 function search() {
+
+    getCurrentAnswer();
 
     const answerSection = document.getElementById('answer-list');
     if (answerSection.style.display == "none") {
@@ -56,7 +58,7 @@ function search() {
         "fullList": []
     }
 
-    if (currentAnswerState == undefined) return;
+    //if (currentAnswerState == undefined) return;
 
     const ruledOutLetters = document.getElementById('ruled-out-letters');
     let ruledOut = ruledOutLetters.value.toUpperCase().split('');
@@ -194,14 +196,14 @@ function addKnownLetterBlank() {
 
     // if statement so that a user can't get rid of the next known letter div altogether 
     // it just looks silly w/o it
-    if (knownLetterBlanks > 1) {
+    //if (knownLetterBlanks > 1) {
         //create delete button
         const deleteBtn = document.createElement('button');
         deleteBtn.innerText = '-';
         deleteBtn.id = "minus";
         buttonDiv.appendChild(deleteBtn);
         deleteBtn.addEventListener('click', () => letterDiv.remove());
-    }
+    //}
 
 }
 
@@ -265,12 +267,12 @@ function displayRuledOutLetters() {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    const newcurrent = document.getElementById('new-blanks');
+    //const newcurrent = document.getElementById('new-blanks');
     const searchBtn = document.getElementById('search');
     const blanksBtn = document.getElementById('new-known-letter-blank');
     const knownBtn = document.getElementById('known-button');
     const ruledOutBtn = document.getElementById('ruled-out-button');
-    newcurrent.addEventListener("keyup", getCurrentAnswer);
+    //newcurrent.addEventListener("keyup", getCurrentAnswer);
     searchBtn.addEventListener('click', search);
     blanksBtn.addEventListener('click', addKnownLetterBlank);
     addKnownLetterBlank();
