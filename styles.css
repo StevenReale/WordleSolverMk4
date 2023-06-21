@@ -502,6 +502,11 @@ footer {
   padding-left: 10px;
 }
 
+#tagline {
+  font-style: italic;
+  justify-self: center;
+}
+
 @media only screen and (max-width: 600px) {
 
   body {
